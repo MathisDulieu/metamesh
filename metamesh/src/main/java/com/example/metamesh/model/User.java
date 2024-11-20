@@ -15,6 +15,7 @@ public class User {
     String email;
     String password;
     boolean isPrivate;
+    boolean isAdmin;
     List<String> subscriptions;
     List<String> subscribers;
 }

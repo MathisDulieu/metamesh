@@ -37,8 +37,10 @@ public class NotificationService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        if(!Objects.equals(tokenPeople.getId(), userId)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        if(!tokenPeople.isAdmin()) {
+            if(!Objects.equals(tokenPeople.getId(), userId)) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
         }
 
         return notificationDao.getNotificationsByUserId(userId);

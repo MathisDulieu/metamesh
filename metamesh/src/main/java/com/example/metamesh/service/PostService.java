@@ -149,13 +149,15 @@ public class PostService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        User user = userDao.findByUsername(post.getAuthor());
-        if (isNull(user)) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+        if(!tokenPeople.isAdmin()) {
+            User user = userDao.findByUsername(post.getAuthor());
+            if (isNull(user)) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }
 
-        if (!Objects.equals(user.getId(), tokenPeople.getId())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            if (!Objects.equals(user.getId(), tokenPeople.getId())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
         }
 
         notificationService.deleteNotifications("New post from " + post.getAuthor() + ": " + post.getTitle());
@@ -176,8 +178,10 @@ public class PostService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
-        if (user.isPrivate() && !Objects.equals(user.getId(), tokenPeople.getId())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        if(!tokenPeople.isAdmin()) {
+            if (user.isPrivate() && !Objects.equals(user.getId(), tokenPeople.getId())) {
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
         }
 
         return postDao.getUserPosts(user.getUsername());

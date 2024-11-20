@@ -95,8 +95,10 @@ public class CommentService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        if(!Objects.equals(existingComment.getUsername(), tokenPeople.getUsername())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        if(!tokenPeople.isAdmin()) {
+            if(!Objects.equals(existingComment.getUsername(), tokenPeople.getUsername())) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
         }
 
         commentDao.remove(existingComment);

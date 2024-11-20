@@ -44,6 +44,7 @@ public class UserService {
         user.setSubscribers(emptyList());
         user.setSubscriptions(emptyList());
         user.setPrivate(true);
+        user.setAdmin(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setId(UUID.randomUUID().toString());
         userDao.save(user);
@@ -63,8 +64,14 @@ public class UserService {
 
     public ResponseEntity<Void> setPrivateAccount(String userId, boolean isPrivate) {
         User tokenPeople = jwtToken.resolveTokenFromRequest();
-        if(tokenPeople == null || !tokenPeople.getId().equals(userId)) {
+        if(tokenPeople == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        if(!tokenPeople.isAdmin()) {
+            if(!tokenPeople.getId().equals(userId)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
         }
 
         if(!tokenPeople.isPrivate() == isPrivate) {
