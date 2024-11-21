@@ -55,7 +55,7 @@ jobs:
                   "GROUP_SALT=your_salt" \
                   "GROUP_SECRET_KEY_ALGORITHM=PBKDF2WithHmacSHA256" \
                   "GROUP_SECRET_KEY_SPEC=AES" \
-                  "MONGO_URI=mongodb+srv://dulieumathis:nan5mfQX2qie1NoD@expensecluster.3t368.mongodb.net/" \
+                  "MONGO_URI=mongodb://metameshaccount:NIfX0N6rSNAHGXoLO5jSbGOTsgff1M5wnKC8jWWOb9MYSP5OMUdIuR6aZs0O64hSPTRe3LQygTLQACDb27MOtQ==@metameshaccount.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@metameshaccount@" \
                   "DATABASE_NAME=metameshdb" \
                   "API_VERSION=1.0.0" \
                   "ALLOWED_ORIGINS=*"
