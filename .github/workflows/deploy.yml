@@ -46,7 +46,7 @@ jobs:
       # 6. Définir les variables d'environnement
       - name: Set environment variables
         run: |
-          az spring app env-var set \
+          az spring app update \
             --name metamesh-api \
             --service metamesh-app \
             --resource-group my-resource-group \
