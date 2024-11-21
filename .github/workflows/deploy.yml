@@ -27,4 +27,4 @@ jobs:
             --name metamesh-api \
             --service metamesh-app \
             --resource-group my-resource-group \
-            --artifact-path ../../target/generated-sources/annotations/metamesh.jar
+            --artifact-path "target\metamesh-0.0.1-SNAPSHOT.jar"
