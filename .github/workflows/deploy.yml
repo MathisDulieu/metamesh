@@ -10,28 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Récupère le code source
       - name: Checkout code
         uses: actions/checkout@v2
 
+      # 2. Configure JDK 21 avant toute utilisation de Maven
+      - name: Set up JDK 21
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      # 3. Se connecter à Azure
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      # 4. Build le projet Maven (dans le sous-dossier metamesh si nécessaire)
       - name: Build project
         run: mvn clean package
         working-directory: ./metamesh
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v2
-        with:
-          distribution : 'temurin'
-          java-version: '21'
-
+      # 5. Déployer l'artefact sur Azure Spring Apps
       - name: Deploy to Azure Spring Apps
         run: |
           az spring app deploy \
             --name metamesh-api \
             --service metamesh-app \
             --resource-group my-resource-group \
-            --artifact-path "target\metamesh-0.0.1-SNAPSHOT.jar"
+            --artifact-path ./metamesh/target/metamesh-0.0.1-SNAPSHOT.jar
