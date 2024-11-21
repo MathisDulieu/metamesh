@@ -8,7 +8,7 @@ RUN ./mvnw package -DskipTests
 
 RUN mv -f target/*.jar /MetaMesh.jar
 
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:21-jre
 
 ARG PORT
 ENV PORT=${PORT}
