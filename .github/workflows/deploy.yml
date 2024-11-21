@@ -20,6 +20,7 @@ jobs:
 
       - name: Build project
         run: mvn clean package
+        working-directory: ./metamesh
 
       - name: Deploy to Azure Spring Apps
         run: |
