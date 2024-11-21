@@ -18,6 +18,7 @@ public class MediaController {
 
     @PostMapping(value = "/media/upload", consumes = "multipart/form-data")
     @Operation(
+            tags = {"Media"},
             summary = "Upload media",
             description = "Uploads a media file (image, video, etc.) and returns metadata about the uploaded media.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -33,6 +34,7 @@ public class MediaController {
 
     @GetMapping("/media/{mediaId}")
     @Operation(
+            tags = {"Media"},
             summary = "Retrieve media URL",
             description = "Retrieves the URL of a media file by its unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")

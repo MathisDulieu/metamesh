@@ -22,6 +22,7 @@ public class NotificationController {
 
     @GetMapping("/users/{userId}/notifications")
     @Operation(
+            tags = {"Notifications"},
             summary = "Get notifications for a user",
             description = "Retrieves all notifications for a specific user, identified by their unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")

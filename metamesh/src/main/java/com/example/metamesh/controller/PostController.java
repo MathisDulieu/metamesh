@@ -25,6 +25,7 @@ public class PostController {
 
     @PostMapping("/posts")
     @Operation(
+            tags = {"CRUD Posts"},
             summary = "Create a new post",
             description = "Creates a new post with a title, content, and optional media attachment.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -84,6 +85,7 @@ public class PostController {
 
     @GetMapping("/posts/{postId}")
     @Operation(
+            tags = {"CRUD Posts"},
             summary = "Get a post by ID",
             description = "Retrieves the details of a specific post by its unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -95,6 +97,7 @@ public class PostController {
 
     @PutMapping("/posts/{postId}")
     @Operation(
+            tags = {"CRUD Posts"},
             summary = "Update a post",
             description = "Updates the details of an existing post, including its title, content, or media.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -122,6 +125,7 @@ public class PostController {
 
     @DeleteMapping("/posts/{postId}")
     @Operation(
+            tags = {"CRUD Posts"},
             summary = "Delete a post",
             description = "Deletes a specific post by its unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -133,6 +137,7 @@ public class PostController {
 
     @GetMapping("/users/{userId}/posts")
     @Operation(
+            tags = {"Searching Posts"},
             summary = "Get posts by user",
             description = "Retrieves all posts created by a specific user, identified by their unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -144,6 +149,7 @@ public class PostController {
 
     @GetMapping("/search/posts")
     @Operation(
+            tags = {"Searching Posts"},
             summary = "Search posts",
             description = "Searches for posts that match the specified keyword in their title or content.",
             security = @SecurityRequirement(name = "bearerAuth")

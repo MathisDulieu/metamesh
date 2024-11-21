@@ -24,6 +24,7 @@ public class UserController {
 
     @PostMapping("/auth/register")
     @Operation(
+            tags = {"Authentication"},
             summary = "User registration",
             description = "Registers a new user in the system with their username, email, and password. " +
                     "The password must meet security requirements."
@@ -102,6 +103,7 @@ public class UserController {
 
     @PostMapping("/auth/login")
     @Operation(
+            tags = {"Authentication"},
             summary = "User login",
             description = "Authenticates a user using their email and password. Returns an access token upon successful login.",
             responses = {
@@ -190,6 +192,7 @@ public class UserController {
 
     @PatchMapping("/users/{userId}/privacy")
     @Operation(
+            tags = {"User Accounts"},
             summary = "Set account privacy",
             description = "Allows a user to toggle the privacy of their account (public or private).",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -212,6 +215,7 @@ public class UserController {
 
     @PostMapping("/users/{userId}/subscribe")
     @Operation(
+            tags = {"Subscribe/Unsubscribe"},
             summary = "Subscribe to a user",
             description = "Allows the authenticated user to subscribe to another user by their user ID.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -224,6 +228,7 @@ public class UserController {
 
     @PostMapping("/users/{userId}/unsubscribe")
     @Operation(
+            tags = {"Subscribe/Unsubscribe"},
             summary = "Unsubscribe from a user",
             description = "Allows the authenticated user to unsubscribe from another user by their user ID.",
             security = @SecurityRequirement(name = "bearerAuth")
