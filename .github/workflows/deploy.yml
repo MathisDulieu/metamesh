@@ -33,6 +33,12 @@ jobs:
         working-directory: ./metamesh
 
       # 5. Déployer l'artefact sur Azure Spring Apps
+      - name: Create app if not exists
+        run: |
+          if ! az spring app show --name metamesh-api --service metamesh-app --resource-group my-resource-group; then
+            az spring app create --name metamesh-api --service metamesh-app --resource-group my-resource-group --assign-endpoint true
+          fi
+
       - name: Deploy to Azure Spring Apps
         run: |
           az spring app deploy \
