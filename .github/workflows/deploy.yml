@@ -32,13 +32,35 @@ jobs:
         run: mvn clean package
         working-directory: ./metamesh
 
-      # 5. Déployer l'artefact sur Azure Spring Apps
+      # 5. Créer l'application si elle n'existe pas
       - name: Create app if not exists
         run: |
           if ! az spring app show --name metamesh-api --service metamesh-app --resource-group my-resource-group; then
-            az spring app create --name metamesh-api --service metamesh-app --resource-group my-resource-group --assign-endpoint true
+            az spring app create \
+              --name metamesh-api \
+              --service metamesh-app \
+              --resource-group my-resource-group \
+              --assign-endpoint true
           fi
 
+      # 6. Définir les variables d'environnement
+      - name: Set environment variables
+        run: |
+          az spring app env-var set \
+            --name metamesh-api \
+            --service metamesh-app \
+            --resource-group my-resource-group \
+            --env "PORT=8080" \
+                  "GROUP_SECRET_KEY=your_secret_key" \
+                  "GROUP_SALT=your_salt" \
+                  "GROUP_SECRET_KEY_ALGORITHM=PBKDF2WithHmacSHA256" \
+                  "GROUP_SECRET_KEY_SPEC=AES" \
+                  "MONGO_URI=mongodb+srv://dulieumathis:nan5mfQX2qie1NoD@expensecluster.3t368.mongodb.net/" \
+                  "DATABASE_NAME=metameshdb" \
+                  "API_VERSION=1.0.0" \
+                  "ALLOWED_ORIGINS=*"
+
+      # 7. Déployer l'artefact sur Azure Spring Apps
       - name: Deploy to Azure Spring Apps
         run: |
           az spring app deploy \
@@ -47,4 +69,3 @@ jobs:
             --resource-group my-resource-group \
             --artifact-path ./metamesh/target/metamesh-0.0.1-SNAPSHOT.jar \
             --runtime-version Java_21
-      
