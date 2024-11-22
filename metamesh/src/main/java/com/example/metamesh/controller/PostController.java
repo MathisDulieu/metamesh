@@ -155,7 +155,9 @@ public class PostController {
             security = @SecurityRequirement(name = "bearerAuth")
     )
     public List<Post> searchPosts(
-            @Parameter(description = "The keyword to search for in post titles or content.") @RequestParam String keyword) {
+            @Parameter(description = "The keyword to search for in post titles or content. Leave empty to fetch all posts.")
+            @RequestParam(required = false) String keyword) {
+
         return postService.searchPosts(keyword);
     }
 }
