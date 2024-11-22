@@ -48,6 +48,7 @@ public class PostService {
         post.setCreatedAt(newDate());
         post.setId(postId);
         post.setAuthor(tokenPeople.getUsername());
+        post.setAuthorId(tokenPeople.getId());
 
         if (!isNull(post.getMediaId())) {
             System.out.println("MediaID inserted");

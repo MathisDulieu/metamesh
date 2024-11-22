@@ -15,5 +15,6 @@ public class Post {
     String title;
     String content;
     String author;
+    String authorId;
     Date createdAt;
 }
