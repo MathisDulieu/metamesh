@@ -50,10 +50,10 @@ public class CommentService {
         Date createdAt = newDate();
 
         Comment comment = Comment.builder()
-                .commentId(commentId)
+                .id(commentId)
                 .postId(existingPost.getId())
                 .username(existingPost.getAuthor())
-                .content(content)
+                .content(content.replace("\"", ""))
                 .createdAt(createdAt)
                 .build();
 

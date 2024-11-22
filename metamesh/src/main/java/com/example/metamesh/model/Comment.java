@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @Builder
 public class Comment {
-    String commentId;
+    String id;
     String postId;
     String content;
     String username;
