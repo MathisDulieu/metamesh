@@ -35,4 +35,8 @@ public class PostDao {
         Query query = new Query(Criteria.where("title").regex(keyword, "i"));
         return mongoTemplate.find(query, Post.class, "posts");
     }
+
+    public List<Post> findAllPosts() {
+        return mongoTemplate.findAll(Post.class, "posts");
+    }
 }

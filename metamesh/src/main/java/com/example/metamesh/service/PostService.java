@@ -193,11 +193,12 @@ public class PostService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
 
+        List<Post> allPosts;
         if (isEmpty(keyword)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            allPosts = postDao.findAllPosts();
+        } else {
+            allPosts = postDao.searchPostsByKeyword(keyword);
         }
-
-        List<Post> allPosts = postDao.searchPostsByKeyword(keyword);
 
         return allPosts.stream()
                 .filter(post -> {
@@ -207,6 +208,8 @@ public class PostService {
                     }
                     return !author.isPrivate() || Objects.equals(author.getId(), tokenPeople.getId());
                 })
+                .sorted((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt())) // Tri décroissant par `CreatedAt`
                 .toList();
     }
+
 }
