@@ -239,5 +239,16 @@ public class UserController {
         return userService.unsubscribeFromUser(userId);
     }
 
+    @GetMapping("/user")
+    @Operation(
+            tags = {"User Accounts"},
+            summary = "Get all the informations of a User Account",
+            description = "Allows the authenticated user to get his own informations.",
+            security = @SecurityRequirement(name = "bearerAuth")
+    )
+    public User getUserInformations() {
+        return userService.getUserInformations();
+    }
+
 
 }

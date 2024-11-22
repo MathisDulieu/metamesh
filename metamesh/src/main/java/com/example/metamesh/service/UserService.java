@@ -90,15 +90,15 @@ public class UserService {
 
         User targetUser = userDao.findById(userId);
         if (isNull(targetUser)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         if (Objects.equals(tokenPeople.getId(), userId)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         if (tokenPeople.getSubscriptions().contains(userId)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         tokenPeople.getSubscriptions().add(userId);
@@ -118,15 +118,15 @@ public class UserService {
 
         User targetUser = userDao.findById(userId);
         if (isNull(targetUser)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         if (Objects.equals(tokenPeople.getId(), userId)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         if (!tokenPeople.getSubscriptions().contains(userId)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         tokenPeople.getSubscriptions().remove(userId);
@@ -138,6 +138,14 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    public User getUserInformations() {
+        User tokenPeople = jwtToken.resolveTokenFromRequest();
+        if (tokenPeople == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+
+        return tokenPeople;
+    }
 
     private static boolean isValidEmail(String email) {
         return email != null && Pattern.compile(EMAIL_REGEX).matcher(email).matches();
