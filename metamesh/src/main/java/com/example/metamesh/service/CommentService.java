@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static com.example.metamesh.config.DateConfig.newDate;
 import static java.util.Objects.isNull;
@@ -77,12 +78,17 @@ public class CommentService {
         }
 
         User author = userDao.findByUsername(existingPost.getAuthor());
-        if(author.isPrivate()) {
+        if (author.isPrivate()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
 
-        return commentDao.getCommentsByPostId(postId);
+        List<Comment> comments = commentDao.getCommentsByPostId(postId);
+
+        return comments.stream()
+                .sorted((c1, c2) -> c2.getCreatedAt().compareTo(c1.getCreatedAt()))
+                .collect(Collectors.toList());
     }
+
 
     public ResponseEntity<Void> deleteComment(String commentId) {
         User tokenPeople = jwtToken.resolveTokenFromRequest();
