@@ -17,6 +17,6 @@ public class User {
     String password;
     boolean isPrivate;
     boolean isAdmin;
-    List<Map<String,String>> subscriptions;
-    List<Map<String,String>> subscribers;
+    Map<String,String> subscriptions;
+    Map<String,String> subscribers;
 }

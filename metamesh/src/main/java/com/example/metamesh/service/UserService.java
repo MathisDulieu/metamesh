@@ -98,14 +98,14 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        if (tokenPeople.getSubscriptions().contains(targetUser.getUsername())) {
+        if (tokenPeople.getSubscriptions().containsKey(targetUser.getId())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        tokenPeople.getSubscriptions().add(Map.of(targetUser.getId(), targetUser.getUsername()));
+        tokenPeople.getSubscriptions().put(targetUser.getId(), targetUser.getUsername());
         userDao.save(tokenPeople);
 
-        targetUser.getSubscribers().add(Map.of(tokenPeople.getId(), tokenPeople.getUsername()));
+        targetUser.getSubscribers().put(tokenPeople.getId(), tokenPeople.getUsername());
         userDao.save(targetUser);
 
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -126,14 +126,14 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        if (!tokenPeople.getSubscriptions().contains(Map.of(targetUser.getId(), targetUser.getUsername()))) {
+        if (!tokenPeople.getSubscriptions().containsKey(targetUser.getId())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        tokenPeople.getSubscriptions().remove(Map.of(targetUser.getId(), targetUser.getUsername()));
+        tokenPeople.getSubscriptions().remove(targetUser.getId());
         userDao.save(tokenPeople);
 
-        targetUser.getSubscribers().remove(Map.of(tokenPeople.getId(), tokenPeople.getUsername()));
+        targetUser.getSubscribers().remove(tokenPeople.getId());
         userDao.save(targetUser);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
