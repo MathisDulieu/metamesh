@@ -101,10 +101,10 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        tokenPeople.getSubscriptions().add(userId);
+        tokenPeople.getSubscriptions().add(targetUser.getUsername());
         userDao.save(tokenPeople);
 
-        targetUser.getSubscribers().add(tokenPeople.getId());
+        targetUser.getSubscribers().add(tokenPeople.getUsername());
         userDao.save(targetUser);
 
         return ResponseEntity.status(HttpStatus.OK).build();
