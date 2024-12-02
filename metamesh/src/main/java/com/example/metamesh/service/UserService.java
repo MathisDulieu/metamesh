@@ -16,6 +16,7 @@ import java.util.UUID;
 import java.util.regex.Pattern;
 
 import static java.util.Collections.emptyList;
+import static java.util.Collections.emptyMap;
 import static java.util.Objects.isNull;
 
 @Service
@@ -42,8 +43,8 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        user.setSubscribers(emptyList());
-        user.setSubscriptions(emptyList());
+        user.setSubscribers(emptyMap());
+        user.setSubscriptions(emptyMap());
         user.setPrivate(true);
         user.setAdmin(false);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
