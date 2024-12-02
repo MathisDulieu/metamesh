@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -16,6 +17,6 @@ public class User {
     String password;
     boolean isPrivate;
     boolean isAdmin;
-    List<String> subscriptions;
-    List<String> subscribers;
+    List<Map<String,String>> subscriptions;
+    List<Map<String,String>> subscribers;
 }

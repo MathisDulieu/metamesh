@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.regex.Pattern;
@@ -97,14 +98,14 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        if (tokenPeople.getSubscriptions().contains(userId)) {
+        if (tokenPeople.getSubscriptions().contains(targetUser.getUsername())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        tokenPeople.getSubscriptions().add(targetUser.getUsername());
+        tokenPeople.getSubscriptions().add(Map.of(targetUser.getId(), targetUser.getUsername()));
         userDao.save(tokenPeople);
 
-        targetUser.getSubscribers().add(tokenPeople.getUsername());
+        targetUser.getSubscribers().add(Map.of(tokenPeople.getId(), tokenPeople.getUsername()));
         userDao.save(targetUser);
 
         return ResponseEntity.status(HttpStatus.OK).build();
@@ -125,14 +126,14 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        if (!tokenPeople.getSubscriptions().contains(userId)) {
+        if (!tokenPeople.getSubscriptions().contains(Map.of(targetUser.getId(), targetUser.getUsername()))) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
-        tokenPeople.getSubscriptions().remove(userId);
+        tokenPeople.getSubscriptions().remove(Map.of(targetUser.getId(), targetUser.getUsername()));
         userDao.save(tokenPeople);
 
-        targetUser.getSubscribers().remove(tokenPeople.getId());
+        targetUser.getSubscribers().remove(Map.of(tokenPeople.getId(), tokenPeople.getUsername()));
         userDao.save(targetUser);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
