@@ -58,7 +58,7 @@ public class PostService {
         postDao.save(post);
 
         if (tokenPeople.getSubscribers() != null && !tokenPeople.getSubscribers().isEmpty()) {
-            for (String subscriberId : tokenPeople.getSubscribers()) {
+            for (String subscriberId : tokenPeople.getSubscribers().keySet()) {
                 User subscriber = userDao.findById(subscriberId);
                 if (subscriber != null) {
                     notificationService.sendNotification(SendNotificationRequest.builder()
