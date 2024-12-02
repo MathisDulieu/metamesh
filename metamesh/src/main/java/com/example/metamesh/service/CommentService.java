@@ -53,7 +53,7 @@ public class CommentService {
         Comment comment = Comment.builder()
                 .id(commentId)
                 .postId(existingPost.getId())
-                .username(existingPost.getAuthor())
+                .username(tokenPeople.getUsername())
                 .content(content.replace("\"", ""))
                 .createdAt(createdAt)
                 .build();
