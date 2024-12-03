@@ -190,7 +190,7 @@ public class UserController {
         return userService.login(login);
     }
 
-    @PatchMapping("/users/{userId}/privacy")
+    @PostMapping("/users/{userId}/privacy")
     @Operation(
             tags = {"User Accounts"},
             summary = "Set account privacy",
