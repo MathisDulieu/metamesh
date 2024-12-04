@@ -24,7 +24,7 @@ public class CommentController {
 
     @PostMapping("/posts/{postId}/comments")
     @Operation(
-            tags = {"CRUD Comments"},
+            tags = {"Comments"},
             summary = "Add a comment to a post",
             description = "Adds a new comment to a specific post, identified by its unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -84,7 +84,7 @@ public class CommentController {
 
     @GetMapping("/posts/{postId}/comments")
     @Operation(
-            tags = {"CRUD Comments"},
+            tags = {"Comments"},
             summary = "Retrieve comments for a post",
             description = "Retrieves all comments for a specific post, identified by its unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")
@@ -96,7 +96,7 @@ public class CommentController {
 
     @DeleteMapping("/comments/{commentId}")
     @Operation(
-            tags = {"CRUD Comments"},
+            tags = {"Comments"},
             summary = "Delete a comment",
             description = "Deletes a specific comment, identified by its unique ID.",
             security = @SecurityRequirement(name = "bearerAuth")

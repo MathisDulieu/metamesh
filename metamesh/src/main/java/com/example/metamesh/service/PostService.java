@@ -209,7 +209,7 @@ public class PostService {
                     }
                     return !author.isPrivate() || Objects.equals(author.getId(), tokenPeople.getId());
                 })
-                .sorted((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt())) // Tri décroissant par `CreatedAt`
+                .sorted((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt()))
                 .toList();
     }
 

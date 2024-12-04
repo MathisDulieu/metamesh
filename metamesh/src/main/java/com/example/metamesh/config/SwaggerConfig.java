@@ -34,6 +34,6 @@ public class SwaggerConfig {
                 .addTagsItem(new Tag().name("Searching Posts").description("Endpoints for searching posts."))
                 .addTagsItem(new Tag().name("Notifications").description("Endpoints for managing and retrieving user notifications."))
                 .addTagsItem(new Tag().name("Media").description("Endpoints for uploading and retrieving media files."))
-                .addTagsItem(new Tag().name("CRUD Comments").description("Endpoints for managing comments on posts."));
+                .addTagsItem(new Tag().name("Comments").description("Endpoints for managing comments on posts."));
     }
 }

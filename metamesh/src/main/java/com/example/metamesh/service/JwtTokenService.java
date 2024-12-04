@@ -23,7 +23,6 @@ import static java.util.Objects.isNull;
 public class JwtTokenService {
     public static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS512);
     private static final long TOKEN_EXPIRATION_TIME = 864_000_000; // 10 jours
-    private static final long REFRESH_TOKEN_EXPIRATION_TIME = 2_592_000_000L; // 30 jours
     private final HttpServletRequest request;
     private final UserDao userDao;
 
