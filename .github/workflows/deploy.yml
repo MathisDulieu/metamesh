@@ -35,11 +35,11 @@ jobs:
       # 5. Créer l'application si elle n'existe pas
       - name: Create app if not exists
         run: |
-          if ! az spring app show --name metamesh-api --service metamesh-app --resource-group my-resource-group; then
+          if ! az spring app show --name metamesh-api --service metamesh-spring-app --resource-group MetaMesh; then
             az spring app create \
               --name metamesh-api \
-              --service metamesh-app \
-              --resource-group my-resource-group \
+              --service metamesh-spring-app \
+              --resource-group MetaMesh \
               --assign-endpoint true
           fi
 
@@ -48,13 +48,9 @@ jobs:
         run: |
           az spring app update \
             --name metamesh-api \
-            --service metamesh-app \
-            --resource-group my-resource-group \
+            --service metamesh-spring-app \
+            --resource-group MetaMesh \
             --env "PORT=8080" \
-                  "GROUP_SECRET_KEY=your_secret_key" \
-                  "GROUP_SALT=your_salt" \
-                  "GROUP_SECRET_KEY_ALGORITHM=PBKDF2WithHmacSHA256" \
-                  "GROUP_SECRET_KEY_SPEC=AES" \
                   "MONGO_URI=mongodb://metameshaccount:NIfX0N6rSNAHGXoLO5jSbGOTsgff1M5wnKC8jWWOb9MYSP5OMUdIuR6aZs0O64hSPTRe3LQygTLQACDb27MOtQ==@metameshaccount.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@metameshaccount@" \
                   "DATABASE_NAME=metameshdb" \
                   "API_VERSION=1.0.0" \
@@ -65,7 +61,7 @@ jobs:
         run: |
           az spring app deploy \
             --name metamesh-api \
-            --service metamesh-app \
+            --service metamesh-spring-app \
             --resource-group my-resource-group \
             --artifact-path ./metamesh/target/metamesh-0.0.1-SNAPSHOT.jar \
             --runtime-version Java_21
