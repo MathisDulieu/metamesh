@@ -10,7 +10,7 @@ services:
       - MONGO_URI=mongodb://metameshdatabase:CCyxYmEsyHcxhb2qkpOvlAxwDAuP0jBAaIQkHeyL3RHJ5XzlOdBoRaIxel8V2aaCtCfiIW9XErKAACDbVoJoxQ==@metameshdatabase.mongo.cosmos.azure.com:10255/?ssl=true&replicaSet=globaldb&retrywrites=false&maxIdleTimeMS=120000&appName=@metameshdatabase@
       - DATABASE_NAME=metameshdatabase
       - API_VERSION=1.0.0
-      - ALLOWED_ORIGINS=*
+      - ALLOWED_ORIGINS=https://metamesh-spring-app-metamesh-api.azuremicroservices.io
     depends_on:
       - mongodb
     restart: always
